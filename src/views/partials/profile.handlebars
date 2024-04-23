@@ -1,0 +1,77 @@
+<section style="background-color: #eee;">
+    <div class="container py-5" style="height: 600px;">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="{{session.user.image}}" alt="avatar"
+                            class="rounded-circle img-fluid" style="width: 150px;">
+                        <div class="d-flex justify-content-center mb-2">
+                            <a href="/logout" class="btn btn-outline-primary ms-1">LogOut</a>
+                            <a href="/" class="btn btn-outline-primary ms-1">Delete Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{session.user.first_name}} {{session.user.last_name}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Age</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{session.user.age}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Gender</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{session.user.gender}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{session.user.email}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Role</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{session.user.role}}</p>
+                            </div>
+                        </div>
+                        <hr>                        
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Password</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <button type="button" class="btn btn-outline-primary ms-1">Change Password</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,35 @@
+<div class="list_container">
+    <h1 class="title">Products Ecommerce</h1>
+    <div id="home">
+      {{#each products }}
+        <div class="card" style="width: 18rem;">
+          <img src={{imageUrl}} class="img-thumbnail img" alt="">
+          <div class="card_info card-body">
+            <h2 class="card-text">{{title}}</h2>
+            <p class="card-text">Description: {{description}}</p>
+            <p class="card-text">Price: {{price}}</p>
+            <p class="card-text">Stocks: {{stock}}</p>
+            <p class="card-text">Year: {{year}}</p>
+            <div>
+            <button class="btn cart px-auto add-to-cart-btn">
+                <a href="/view/{{_id}}">View Product</a>
+            </button>
+            </div>  
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="paginate">
+      {{#if pageInfo.hasPrevPage}}
+        <a href="{{pageInfo.prevLink}}">Prev</a>
+      {{/if}}
+        <p>Pagina {{pageInfo.page}} de {{pageInfo.pages}} </p>
+      {{#if pageInfo.hasNextPage}}
+        <a href="{{pageInfo.nextLink}}">Next</a>
+      {{/if}}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script src="js/main.js"></script>

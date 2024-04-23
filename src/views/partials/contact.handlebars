@@ -1,0 +1,21 @@
+<!-- chat.handlebars -->
+<div id="chat_container">
+    <h1 class="title">Chat Contact</h1>
+    <div class="chat_container">
+        <div class="chat">
+            <div id="output">
+                <!-- Aquí se renderizarán los mensajes del chat -->
+                {{#each messages}}
+                <div>{{this.email}}: {{this.message}}</div>
+                {{/each}}
+            </div>
+            <div id="actions"></div>
+        </div>
+        <div class="input-container">
+            <input class="input_chat  input" type="text" placeholder="Write your message...">
+            <button class="input_send  input">Send</button>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/chats.js"></script>

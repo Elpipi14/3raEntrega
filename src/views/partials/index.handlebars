@@ -1,0 +1,20 @@
+<h1 class="title">{{session.welcomeMessage}}</h1>
+
+<h1 class="title">Products Ecommerce</h1>
+<div id="home">
+    {{#each products}}
+    <div class="card vist" style="width: 18rem;">
+        <img src="{{imageUrl}}" class="mx-auto img-thumbnail img" alt="">
+        <div class="card_info card-body">
+            <p class="card-text">{{title}}</p>
+            <p class="card-text">{{description}}</p>
+            <p class="card-text">Price: {{price}}</p>
+            <p class="card-text">Stocks: {{stock}}</p>
+            <p class="card-text">year: {{year}}</p>
+        </div>
+        <button class="btn cart px-auto add-to-cart-btn">
+            <a href="/view/{{_id}}">View Product</a>
+        </button>   
+    </div>
+    {{/each}}
+</div>

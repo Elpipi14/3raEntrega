@@ -1,0 +1,26 @@
+<div id="cart">
+    {{#each carts}}
+        {{#each products}}
+            <div class="cart-item">
+                <img src="{{product.imageUrl}}" alt="{{product.title}}" class="product-image">
+                <h3 class="product_title">{{product.title}}</h3>
+                <div class="product-details">
+                    <div class="cart_quantity">
+                        <h2>Cantidad</h2>
+                        <div class="aum_rest">
+                            <button class="btn cart px-auto">-</button>
+                            <span>{{quantity}}</span>
+                            <button class="btn cart px-auto">+</button>
+                        </div>
+                    </div>
+                    <div class="cart_price">Precio: <span class="price">{{product.price}} $</span></div>
+                    <button class="delete-btn"><box-icon name="trash-alt" type="solid" animation="tada" color="#7749c7"></box-icon></button>
+                </div>
+            </div>
+        {{/each}}
+    {{/each}}
+    <div class="cart_btn">
+        <button class="btn cart px-auto fin">Add Products</button>
+        <button class="btn cart px-auto fin">CheckOut</button>
+    </div>
+</div>
