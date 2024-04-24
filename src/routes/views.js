@@ -178,23 +178,31 @@ routerViews.get('/cart', async (req, res) => {
     }
 });
 
-routerViews.post('/cart/add', async (req, res) => {
+routerViews.get('/cart/add/:productId', async (req, res) => {
     try {
-        const { productId } = req.body;
-        // Asegúrate de que el usuario esté autenticado antes de agregar el producto al carrito
+        const productId = req.params.productId; // Obtener el productId de los parámetros de la ruta
+
+        // Verificar si el usuario está autenticado correctamente
         if (!req.isAuthenticated() || !req.session.user) {
-            return res.redirect('/login'); // Redirige al usuario al inicio de sesión si no está autenticado
+            return res.redirect('/login');
         }
-        const userId = req.session.user._id; // Obtén el ID del usuario autenticado
+
+        const cartId = req.session.user.cartId; // Obtener el ID cart del usuario autenticado
+
+
         // Agregar el producto al carrito del usuario
-        const cart = await cartManager.addToCart(userId, productId);
-        // No necesitas actualizar el stock del producto aquí, ya que debería ser manejado por addToCart
-        res.redirect('/cart'); // Redirige al usuario al carrito después de agregar el producto
+        const cart = await cartManager.addToCart(cartId, productId);
+
+        //Verificar el resultado de addToCart
+        console.log('Cart after adding product:', cart);
+
+        res.redirect('/cart'); // Redirigir al usuario al carrito después de agregar el producto
     } catch (error) {
         console.error('Error adding product to cart:', error.message);
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 
 // vista profile

@@ -1,5 +1,4 @@
 
-
 <div class="list_container">
     <h1 class="title">Products Ecommerce</h1>
     <div id="home">
@@ -14,10 +13,10 @@
                 {{!-- {{#each product.sizessizes.entries}}
                             <button type="button" class="btn btn-secondary talles">{{this.[0]}}</button>
                     {{/each}} --}}
-                <button class="btn cart px-auto add-to-cart-btn" data-product-id="{{_id}}">Add Product</button>
-                </div>  
-            </div>
+                <button class="btn cart px-auto add-to-cart-btn">
+                    <a href="/cart/add/{{this._id}}">Add to Cart</a>
+                </button>
+            </div>  
         </div>
     </div>
 </div>
-
