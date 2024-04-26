@@ -1,22 +1,20 @@
-
 <div class="list_container">
     <h1 class="title">Products Ecommerce</h1>
     <div id="home">
         <div class="card" style="width: 18rem;">
-            <img src={{product.imageUrl}} class="img-thumbnail imgs" alt="">
+            <img src="{{product.imageUrl}}" class="img-thumbnail imgs" alt="">
             <div class="card_info card-body">
                 <h2 class="card-text">{{product.title}}</h2>
                 <p class="card-text">Description: {{product.description}}</p>
                 <p class="card-text">Price: {{product.price}}</p>
                 <p class="card-text">Stocks: {{product.stock}}</p>
                 <p class="card-text">Year: {{product.year}}</p>
-                {{!-- {{#each product.sizessizes.entries}}
-                            <button type="button" class="btn btn-secondary talles">{{this.[0]}}</button>
-                    {{/each}} --}}
-                <button class="btn cart px-auto add-to-cart-btn">
-                    <a href="/cart/add/{{this._id}}">Add to Cart</a>
-                </button>
+                <form action="/cart/add/{{product._id}}" method="POST">
+                    <button type="submit" class="btn cart px-auto add-to-cart-btn">Add to Cart</button>
+                </form>
             </div>  
         </div>
     </div>
 </div>
+
+

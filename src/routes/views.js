@@ -157,43 +157,71 @@ routerViews.post('/register', passport.authenticate("register", {
 
 // ------------------------------------------------- 
 // carts
+// Ruta para mostrar el carrito
 routerViews.get('/cart', async (req, res) => {
     try {
-        let products = []; // Por defecto, el carrito está vacío
-
-        // Verificar si el usuario está autenticado y si tiene un carrito asociado
+        // Verificar si el usuario está autenticado y tiene un carrito asociado
         if (req.isAuthenticated() && req.user.cartId) {
             // Obtener el ID del carrito del usuario autenticado
             const cartId = req.user.cartId;
 
             // Obtener los productos del carrito utilizando el ID del carrito
             const cart = await cartManager.getById(cartId);
-            products = cart.products;
-        }
+            const products = cart.products;
 
-        res.render('partials/cart', { products });
+            // Crear un mapa para almacenar los productos agrupados por su ID
+            const productMap = new Map();
+
+            // Iterar sobre cada producto y agregarlo al mapa
+            for (const item of products) {
+                const productId = item.product;
+                const productDetails = await productsDB.getById(productId);
+                if (productMap.has(productId)) {
+                    // Si el producto ya está en el mapa, sumar la cantidad
+                    const existingProduct = productMap.get(productId);
+                    existingProduct.quantity += item.quantity;
+                } else {
+                    // Si el producto no está en el mapa, agregarlo
+                    productMap.set(productId, {
+                        product: productDetails,
+                        quantity: item.quantity,
+                        _id: item._id
+                    });
+                }
+            }
+
+            // Convertir el mapa de productos a un array
+            const productsWithDetails = Array.from(productMap.values());
+
+            // Renderizar la vista del carrito pasando los productos con sus detalles
+            res.render('partials/cart', { products: productsWithDetails });
+        } else {
+            // Si el usuario no está autenticado o no tiene un carrito asociado, renderizar el carrito vacío
+            res.render('partials/cart', { products: [] });
+        }
     } catch (error) {
         console.error('Error al obtener productos del carrito:', error.message);
         res.status(500).send('Error interno del servidor');
     }
 });
 
-routerViews.get('/cart/add/:productId', async (req, res) => {
+
+// Ruta para agregar un producto al carrito
+routerViews.post('/cart/add/:productId', async (req, res) => {
     try {
         const productId = req.params.productId; // Obtener el productId de los parámetros de la ruta
 
         // Verificar si el usuario está autenticado correctamente
-        if (!req.isAuthenticated() || !req.session.user) {
+        if (!req.session.user || !req.session.user.cartId) {
+            console.log('User not authenticated or cartId not found in session');
             return res.redirect('/login');
         }
 
         const cartId = req.session.user.cartId; // Obtener el ID cart del usuario autenticado
+        console.log('User cartId:', cartId);
 
-
-        // Agregar el producto al carrito del usuario
+        // Agregar el producto al carrito del usuario utilizando el ID del carrito
         const cart = await cartManager.addToCart(cartId, productId);
-
-        //Verificar el resultado de addToCart
         console.log('Cart after adding product:', cart);
 
         res.redirect('/cart'); // Redirigir al usuario al carrito después de agregar el producto
